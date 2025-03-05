@@ -1,4 +1,5 @@
 const express = require ('express');
+const {newEmployee}
 const app = express ();
 const client = require ('./client');
 app.use (express.json())
@@ -20,6 +21,12 @@ app.get('/employees',async(req,res,next)=> {
 app.post ('/api/employees',async (req,res,next)=> {
     
     const {id, name} = req.body;
+    try {
+        const newEmployee = await createEmployee (id,name);
+        res.send(newEmployee);
+    } catch (error){
+        console.log(err);
+    }
     res.status(200).json ({ message: 'User Created'})
 })
 
